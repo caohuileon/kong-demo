@@ -41,6 +41,7 @@ jobs:
           spec: "cypress/**/*.cy.js"
           config-file: cypress.config.js
           env: KONG_BASE_URL=http://localhost:8001
+          browser: chrome
           runTests: true
           wait-on: http://localhost:8001/status
           wait-on-timeout: 15

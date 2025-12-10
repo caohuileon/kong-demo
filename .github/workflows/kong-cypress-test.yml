@@ -25,17 +25,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: 'npm'
+
       - name: Install Cypress dependencies
         run: |
           npm init -y --force
           npm install cypress --save-dev
-          if [ -f "package-lock.json" ]; then
-            echo "✅ package-lock.json generated successfully"
-          else
-            echo "❌ Failed to generate package-lock.json"
-            exit 1
-          fi
           npx cypress verify
 
       - name: Run Cypress tests
@@ -46,7 +40,7 @@ jobs:
           runTests: true
           wait-on: http://localhost:8001/status
           wait-on-timeout: 15
-          install: true
+          install: false
           publish-summary: true
 
       - name: Cleanup Kong containers

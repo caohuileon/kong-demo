@@ -1,0 +1,23 @@
+name: Kong Demo CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Docker Setup Compose
+      uses: docker/setup-compose-action@v1.2.0
+      with:
+        version: v2.40.3
+    - name: Start Kong
+      run: 
+        docker-compose up -d
+        sleep 30
+        curl -s http://localhost:8001/status | jq .status

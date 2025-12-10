@@ -28,14 +28,16 @@ jobs:
 
       - name: Install Cypress dependencies
         run: |
-          npm init -y --force
           npm install cypress --save-dev
+          npm init -y --force
+          npx cypress init
           npx cypress verify
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6.5.0
         with:
           spec: cypress-demo/**/*.cy.js
+          config-file: ./cypress-demo/cypress.config.js
           env: KONG_BASE_URL=http://localhost:8001
           runTests: true
           wait-on: http://localhost:8001/status

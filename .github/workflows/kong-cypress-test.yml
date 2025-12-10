@@ -32,18 +32,19 @@ jobs:
           npm init -y --force
           npm install cypress --save-dev
           npx cypress verify
+          npx cypress info
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6.5.0
         with:
-          spec: "**/*.cy.js"
-          config-file: ../cypress.config.js
+          working-directory: ./cypress-demo
+          spec: "cypress/**/*.cy.js"
+          config-file: cypress.config.js
           env: KONG_BASE_URL=http://localhost:8001
           runTests: true
           wait-on: http://localhost:8001/status
           wait-on-timeout: 15
           install: false
-          working-directory: ./cypress-demo
           publish-summary: true
 
       - name: Cleanup Kong containers

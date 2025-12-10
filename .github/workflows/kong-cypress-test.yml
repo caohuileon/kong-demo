@@ -20,4 +20,4 @@ jobs:
       run: 
         docker compose up -d
         sleep 30
-        curl -s http://localhost:8001/status | jq .status
+        curl http://localhost:8001/status

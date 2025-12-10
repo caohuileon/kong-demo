@@ -45,7 +45,7 @@ Single: npx cypress run --spec cypress/e2e/kong-create-service.cy.js
 Folder: npx cypress run --spec cypress/e2e/
 ```
 * Brief report display like this once done \
-![Report Sample](https://github.com/caohuileon/kong-demo/tree/main/docs/report_sample.png)
+![Report Sample](https://github.com/caohuileon/kong-demo/blob/main/docs/report_sample.png)
 
 ## _Github Actions CI Setups_
 After local test working ready, now we setup Github Actions to integrate it into CI automation workflow
@@ -69,7 +69,7 @@ on:
 
 ### _Step-3: Verify Github Actions CI workflow_
 After push event happened, you will able to see actions workflow event running as bellow: \
-![Report Sample](https://github.com/caohuileon/kong-demo/tree/main/docs/ci_report.png)
+![Report Sample](https://github.com/caohuileon/kong-demo/blob/main/docs/ci_report.png)
 
 # Summary
 Through this test demo, I have gained a basic understanding of Kong Gateway. The project setup follows a two-step approach:

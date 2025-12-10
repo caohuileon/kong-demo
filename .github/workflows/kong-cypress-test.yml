@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20.x
 
       - name: Install Cypress dependencies
         run: |
@@ -37,7 +37,7 @@ jobs:
         uses: cypress-io/github-action@v6.5.0
         with:
           spec: "**/*.cy.js"
-          config-file: ../cypress.config.js
+          config-file: cypress.config.js
           env: KONG_BASE_URL=http://localhost:8001
           runTests: true
           wait-on: http://localhost:8001/status

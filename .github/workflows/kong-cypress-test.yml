@@ -21,6 +21,16 @@ jobs:
           sleep 20
           curl -f http://localhost:8001/status || { echo "Kong 启动失败"; exit 1; }
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      - name: Install Cypress dependencies
+        run: |
+          npm init -y --force
+          npm install cypress --save-dev
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6.5.0
         with:

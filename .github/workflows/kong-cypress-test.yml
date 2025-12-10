@@ -5,33 +5,32 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Docker Setup Compose
-      uses: docker/setup-compose-action@v1.2.0
-      with:
-        version: v2.40.3
-    - name: Start Kong
-      run: |
-        docker compose up -d
-        sleep 15
-        curl http://localhost:8001/status
+      - uses: actions/checkout@v4
 
-    - name: Run Cypress tests
-      uses: cypress-io/github-action@v6.5.0
-      with:
-        spec: cypress-demo/**/*.cy.js
-        env: KONG_BASE_URL=http://localhost:8001
-        runTests: true
+      - name: Docker Setup Compose
+        uses: docker/setup-compose-action@v1.2.0
+        with:
+          version: v2.40.3
+
+      - name: Start Kong
+        run: |
+          docker compose up -d
+          sleep 20
+          curl -f http://localhost:8001/status || { echo "Kong 启动失败"; exit 1; }
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6.5.0
+        with:
+          spec: cypress-demo/**/*.cy.js
+          env: KONG_BASE_URL=http://localhost:8001
+          runTests: true
           wait-on: http://localhost:8001/status
           wait-on-timeout: 15
           install: true
 
-    - name: Cleanup Kong containers
-      if: always()
-      run: docker compose down
+      - name: Cleanup Kong containers
+        if: always()
+        run: docker compose down

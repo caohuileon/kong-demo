@@ -30,6 +30,13 @@ jobs:
         run: |
           npm init -y --force
           npm install cypress --save-dev
+          if [ -f "package-lock.json" ]; then
+            echo "✅ package-lock.json generated successfully"
+          else
+            echo "❌ Failed to generate package-lock.json"
+            exit 1
+          fi
+          npx cypress verify
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6.5.0
@@ -40,6 +47,7 @@ jobs:
           wait-on: http://localhost:8001/status
           wait-on-timeout: 15
           install: true
+          publish-summary: true
 
       - name: Cleanup Kong containers
         if: always()

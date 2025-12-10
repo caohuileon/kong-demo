@@ -28,8 +28,9 @@ jobs:
 
       - name: Install Cypress dependencies
         run: |
-          npm install cypress --save-dev
+          cd cypress-demo
           npm init -y --force
+          npm install cypress --save-dev
           npx cypress verify
 
       - name: Run Cypress tests
@@ -42,6 +43,7 @@ jobs:
           wait-on: http://localhost:8001/status
           wait-on-timeout: 15
           install: false
+          working-directory: ./
           publish-summary: true
 
       - name: Cleanup Kong containers
